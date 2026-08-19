@@ -1,0 +1,20 @@
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+backend/.venv/
+backend/__pycache__/
+.venv/
+*.py[cod]
+coverage/
+
+# Local datasets and secrets
+/Feature_Dataset/
+/Feature_Dataset.zip
+/Dataset/
+/.env
+# Backend generated/runtime files
+backend/.venv/
+backend/.env
+backend/storage/
+__pycache__/
+.pytest_cache/
