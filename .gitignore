@@ -10,6 +10,8 @@ coverage/
 # Local datasets and secrets
 /Feature_Dataset/
 /Feature_Dataset.zip
+/THUNGHIEM-bo-de-thi/
+/THUNGHIEM-bo-de-thi.zip
 /Dataset/
 /.env
 # Backend generated/runtime files
@@ -18,3 +20,5 @@ backend/.env
 backend/storage/
 __pycache__/
 .pytest_cache/
+
+/Kiet-Prompt/
