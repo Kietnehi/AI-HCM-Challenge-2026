@@ -1,0 +1,8 @@
+Link1 : https://github.com/anminhhung/Pipeline_HCM_AI
+Link 2 : https://github.com/BaryuH/Ho-Chi-Minh-AI-Challenge-2025
+Link 3 : https://github.com/sabertoaster/AIChallengeHCMC2024
+Link 4 : https://github.com/negative318/AIchallenge2024
+
+
+Dataset : https://www.kaggle.com/datasets/fatle542/aic-dataset
+Feature_Dataset : https://www.kaggle.com/datasets/kitnehi1211/feature-aic-2026
