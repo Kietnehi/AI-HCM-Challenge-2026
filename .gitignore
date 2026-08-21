@@ -22,3 +22,5 @@ __pycache__/
 .pytest_cache/
 
 /Kiet-Prompt/
+# Smoke test output
+Code-ThuNghiem-AIC/tests/_smoke_*/

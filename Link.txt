@@ -6,5 +6,9 @@ Link 4 : https://github.com/negative318/AIchallenge2024
 
 Dataset : https://www.kaggle.com/datasets/fatle542/aic-dataset
 Feature_Dataset : https://www.kaggle.com/datasets/kitnehi1211/feature-aic-2026
+Link đề thì thử nghiệm  : https://www.kaggle.com/datasets/kitnehi1211/dethithunghiem
 
 Embedding Image : https://www.kaggle.com/code/ntloi131205/aic2026-siglip-embedding
+
+tk : aic2026-279
+mk : i2aXY4CjMcS2

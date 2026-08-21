@@ -1,0 +1,63 @@
+import os, json, glob, re, io, sys, time, math, random, base64, unicodedata, csv, shutil, zipfile
+from pathlib import Path
+from collections import defaultdict, Counter
+
+import numpy as np
+import pandas as pd
+
+KG = "/kaggle/input"
+
+def resolve(owner: str, slug: str, inner: str = "", require: str = None) -> str:
+    """Tim thu muc dataset.
+
+    require: ten file BAT BUOC phai co trong thu muc ket qua (vd 'BUILD_MANIFEST.json').
+    Kaggle doi khi giai nen dataset kem 1 lop thu muc con long them (vd
+    'aic26-index/index/...'), nen chi os.path.exists() tren thu muc goc la KHONG du:
+    no luon ton tai (la 1 folder) du file can nam sau hon 1-2 cap. Neu co ,
+    tu do xuong (glob recursive) de tim dung thu muc chua no.
+    """
+    candidates = [f"{KG}/datasets/{owner}/{slug}", f"{KG}/{slug}"]
+    candidates += glob.glob(f"{KG}/**/{slug}", recursive=True)
+    seen = set()
+    for base in candidates:
+        if base in seen or not os.path.isdir(base):
+            continue
+        seen.add(base)
+        if not require:
+            p = os.path.join(base, inner) if inner else base
+            if os.path.exists(p):
+                return p
+            continue
+        hits = sorted(glob.glob(os.path.join(base, "**", require), recursive=True))
+        if hits:
+            found_dir = os.path.dirname(hits[0])
+            return os.path.join(found_dir, inner) if inner else found_dir
+    raise FileNotFoundError(
+        f"Khong tim thay {owner}/{slug}" + (f" (chua ''{require}'')" if require else "") +
+        f". Da attach dataset chua?
+"
+        f"Co san trong /kaggle/input: {os.listdir(KG) if os.path.isdir(KG) else 'KHONG CO'}"
+    )
+
+INDEX_ROOT  = resolve("kitnehi1211", "aic26-index", require="BUILD_MANIFEST.json")
+QUERY_ROOT  = resolve("kitnehi1211", "dethithunghiem")
+try:
+    KEYFRAME_DS = resolve("fatle542", "aic-dataset")
+except FileNotFoundError as e:
+    print(f"[WARN] {e}
+-> SKIP_VLM = True")
+    KEYFRAME_DS, SKIP_VLM = None, True
+
+SUB_DIR = f"{WORK}/submission"
+DBG_DIR = f"{WORK}/debug"
+for _d in (SUB_DIR, DBG_DIR):
+    os.makedirs(_d, exist_ok=True)
+
+def nfc(s) -> str:
+    if s is None:
+        return ""
+    return unicodedata.normalize("NFC", str(s)).strip()
+
+print("INDEX_ROOT  =", INDEX_ROOT)
+print("QUERY_ROOT  =", QUERY_ROOT)
+print("KEYFRAME_DS =", KEYFRAME_DS)
