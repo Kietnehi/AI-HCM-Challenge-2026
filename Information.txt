@@ -1,0 +1,107 @@
+• Tôi đã kiểm tra toàn bộ dataset directory
+  (https://drive.google.com/drive/folders/17fAKQ6UZqVgU4PDsuyxvHnxW48kXbyLW):
+
+  - Số video: 873 video MP4
+  - Tổng thời lượng: 7.840,47 phút
+  - Tương đương khoảng 130 giờ 40 phút 28 giây
+
+  Thời lượng được tính từ trường length trong 873 file metadata tương ứng.
+   Folder                                                        Số video    Tổng phút                    Quy đổi
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━  ━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━
+   Videos_L21_a/video (https://drive.google.com/drive/                 29       532,22      8 giờ 52 phút 13 giây
+   folders/1h_DqND3AlkQ4FKwDs8E7u9vMfVz42BAp)
+  ────────────────────────────────────────────────────────────  ──────────  ───────────  ─────────────────────────
+   Videos_L22_a/video (https://drive.google.com/drive/                 31       611,80     10 giờ 11 phút 48 giây
+   folders/1f2rKc5di81r-8tVGTO5_8PCGQMJThOLG)
+  ────────────────────────────────────────────────────────────  ──────────  ───────────  ─────────────────────────
+   Videos_L23_a/video (https://drive.google.com/drive/                 25       162,03       2 giờ 42 phút 2 giây
+   folders/1GnqOyrtVIVYz7_xdtVXafEDjRqiDFZOa)
+  ────────────────────────────────────────────────────────────  ──────────  ───────────  ─────────────────────────
+   Videos_L24_a/video (https://drive.google.com/drive/                 43       368,98       6 giờ 8 phút 59 giây
+   folders/1bt7QNFxW0JOfgJvooQujaEB7YI4kS_jv)
+  ────────────────────────────────────────────────────────────  ──────────  ───────────  ─────────────────────────
+   Videos_L25_a/video (https://drive.google.com/drive/                 88     2.173,98     36 giờ 13 phút 59 giây
+   folders/1TEfotVWDI1Ogh2ie5j9pqW0NoLknd2fP)
+  ────────────────────────────────────────────────────────────  ──────────  ───────────  ─────────────────────────
+   Videos_L26_a/video (https://drive.google.com/drive/                 99       528,07       8 giờ 48 phút 4 giây
+   folders/1uFY-b12IzS95YZQbWrku7wvj6h_dFfQ7)
+  ────────────────────────────────────────────────────────────  ──────────  ───────────  ─────────────────────────
+   Videos_L26_b/video (https://drive.google.com/drive/                100       537,02       8 giờ 57 phút 1 giây
+   folders/1z7rRlLVYLnnS4l1nAOqLOuhzR9kQjrQV)
+  ────────────────────────────────────────────────────────────  ──────────  ───────────  ─────────────────────────
+   Videos_L26_c/video (https://drive.google.com/drive/                100       530,93      8 giờ 50 phút 56 giây
+   folders/11GCNgY_XFT1BfCuNfj0LcyCmLhpUDEtE)
+  ────────────────────────────────────────────────────────────  ──────────  ───────────  ─────────────────────────
+   Videos_L26_d/video (https://drive.google.com/drive/                100       514,55      8 giờ 34 phút 33 giây
+   folders/1hKdrgAshQsDiMPAXjeIc7wsISzyhk0PZ)
+  ────────────────────────────────────────────────────────────  ──────────  ───────────  ─────────────────────────
+   Videos_L26_e/video (https://drive.google.com/drive/                 99       517,05       8 giờ 37 phút 3 giây
+   folders/1jm3hUZMjnN1TLOg7vdLGcepmtcFLGPNw)
+  ────────────────────────────────────────────────────────────  ──────────  ───────────  ─────────────────────────
+   Videos_L27_a/video (https://drive.google.com/drive/                 16       157,22      2 giờ 37 phút 13 giây
+   folders/1KIfWQkuCBpXLTCNPKevNd-jEt8icae3p)
+  ────────────────────────────────────────────────────────────  ──────────  ───────────  ─────────────────────────
+   Videos_L28_a/video (https://drive.google.com/drive/                 24       454,85      7 giờ 34 phút 51 giây
+   folders/1EgXn77seE2vtylUo-YFrxV1uYcHmx-EL)
+  ────────────────────────────────────────────────────────────  ──────────  ───────────  ─────────────────────────
+   Videos_L29_a/video (https://drive.google.com/drive/                 23       410,50      6 giờ 50 phút 30 giây
+   folders/1RP3_2H1hHkzmxrfPv8Wg0GQxijjcoG1W)
+  ────────────────────────────────────────────────────────────  ──────────  ───────────  ─────────────────────────
+   Videos_L30_a/video (https://drive.google.com/drive/                 96       341,27      5 giờ 41 phút 16 giây
+   folders/1qSYxSymq1WOdlp4Vo3A9LHs_nXcBiO4K)
+  ────────────────────────────────────────────────────────────  ──────────  ───────────  ─────────────────────────
+   Tổng cộng                                                          873     7.840,47    130 giờ 40 phút 28 giây
+
+
+• Trong dataset directory (https://drive.google.com/drive/folders/17fAKQ6UZqVgU4PDsuyxvHnxW48kXbyLW):
+
+  - Tổng số keyframes ảnh JPG: 177.321
+  - Phân bố trong 873 thư mục video
+  - Trung bình khoảng 203 keyframes/video
+
+  Thư mục map-keyframes có thêm 873 file CSV metadata, nhưng tôi không tính chúng là ảnh keyframe.  
+
+
+     Folder                                                        Số video    Số keyframes JPG    Trung bình/video
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━
+   Keyframes_L21 (https://drive.google.com/drive/                      29               7.800              268,97
+   folders/107ysYOadx5ltspg2h4Z-cstJ2ZH-Ddrd)
+  ────────────────────────────────────────────────────────────  ──────────  ──────────────────  ──────────────────
+   Keyframes_L22 (https://drive.google.com/drive/                      31               9.096              293,42
+   folders/1zolAthQSTfmeCaBEZSErWZfCAS0bV7PM)
+  ────────────────────────────────────────────────────────────  ──────────  ──────────────────  ──────────────────
+   Keyframes_L23 (https://drive.google.com/drive/                      25               2.326               93,04
+   folders/12TyGNiq9HBsTB5_icTM4zNWsjI4kjAd8)
+  ────────────────────────────────────────────────────────────  ──────────  ──────────────────  ──────────────────
+   Keyframes_L24 (https://drive.google.com/drive/                      43               6.781              157,70
+   folders/1afgAASJHCNzSeHFoU7OUHjdIJ27lFvjG)
+  ────────────────────────────────────────────────────────────  ──────────  ──────────────────  ──────────────────
+    Keyframes_L25 (https://drive.google.com/drive/                      88              37.445              425,51
+   folders/1SfwY9fXJ7FRCK0AiScXdnoix49OSSLeP)
+  ────────────────────────────────────────────────────────────  ──────────  ──────────────────  ──────────────────
+   Keyframes_L26_a (https://drive.google.com/drive/                    99              14.235              143,79
+   folders/1qZVSSCgBttt2QFYkLenpS2rnwAaVjWPI)
+  ────────────────────────────────────────────────────────────  ──────────  ──────────────────  ──────────────────
+   Keyframes_L26_b (https://drive.google.com/drive/                   100              15.626              156,26
+   folders/1UuxaUlVH0y3ubTtd-XzXJSRJOmSA5pat)
+  ────────────────────────────────────────────────────────────  ──────────  ──────────────────  ──────────────────
+   Keyframes_L26_c (https://drive.google.com/drive/                   100              16.731              167,31
+   folders/13I-F0LxXoapQLGeXjLdz7He6fvwIO7Pd)
+   folders/15lcZxmEMAuBR3SmUTXsx-WvRqbajf9Rc)
+  ────────────────────────────────────────────────────────────  ──────────  ──────────────────  ──────────────────
+   Keyframes_L26_e (https://drive.google.com/drive/                    99              16.498              166,65
+   folders/1mz6UWPw2wwRXhZEyHKSFiYZl0az5wnS7)
+  ────────────────────────────────────────────────────────────  ──────────  ──────────────────  ──────────────────
+   Keyframes_L27 (https://drive.google.com/drive/                      16               4.914              307,13
+   folders/1OqIqIv3gUT5BVd4wMZNZUCH7iZMxZVgC)
+  ────────────────────────────────────────────────────────────  ──────────  ──────────────────  ──────────────────
+   Keyframes_L28 (https://drive.google.com/drive/                      24              10.683              445,13
+   folders/1Y8mizqT_AtF1BJPiyCNRzA_rUzDMxxgp)
+  ────────────────────────────────────────────────────────────  ──────────  ──────────────────  ──────────────────
+   Keyframes_L29 (https://drive.google.com/drive/                      23              10.771              468,30
+   folders/1bObegJ5QJH2gfzAlfLxpvMu-9nNMwZtK)
+  ────────────────────────────────────────────────────────────  ──────────  ──────────────────  ──────────────────
+   Keyframes_L30 (https://drive.google.com/drive/                      96               7.915               82,45
+   folders/15JcOrTXNnGRewvm7zXRV2hLUZWjhkyxg)
+  ────────────────────────────────────────────────────────────  ──────────  ──────────────────  ──────────────────
+   Tổng cộng                                                          873             177.321              203,12
