@@ -1,210 +1,236 @@
-# AI-HCM Challenge 2026
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0056D2,50:6C63FF,100:00C9A7&height=180&section=header&text=AI-HCM%20Challenge%202026&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Multimodal%20Video%20Retrieval&descAlignY=58&descSize=20" alt="AI-HCM Challenge 2026 banner" />
+</p>
 
-Kho mã nguồn, notebook và tài liệu phục vụ cuộc thi **AI Challenge 2026**. Dự án tập trung vào bài toán truy hồi video đa phương thức: tìm video và khung hình phù hợp với truy vấn, tinh chỉnh kết quả theo thời gian, hỗ trợ kiểm duyệt thủ công và xuất tệp submission theo đúng định dạng của cuộc thi.
+<p align="center">
+  <a href="https://github.com/Kietnehi/AI-HCM-Challenge-2026/stargazers"><img src="https://img.shields.io/github/stars/Kietnehi/AI-HCM-Challenge-2026?style=for-the-badge&color=yellow&logo=github" alt="GitHub stars" /></a>
+  <a href="https://github.com/Kietnehi/AI-HCM-Challenge-2026/network/members"><img src="https://img.shields.io/github/forks/Kietnehi/AI-HCM-Challenge-2026?style=for-the-badge&color=orange&logo=github" alt="GitHub forks" /></a>
+  <a href="https://github.com/Kietnehi/AI-HCM-Challenge-2026/issues"><img src="https://img.shields.io/github/issues/Kietnehi/AI-HCM-Challenge-2026?style=for-the-badge&color=red&logo=github" alt="GitHub issues" /></a>
+</p>
 
-> **Lưu ý:** Repository chỉ chứa mã nguồn, notebook, tài liệu và các tệp mẫu cần thiết. Dataset lớn, tệp liên kết nội bộ, prompt nội bộ và thông tin bí mật được loại khỏi GitHub theo `.gitignore`.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/PyTorch-Deep_Learning-EE4C2C?style=flat-square&logo=pytorch&logoColor=white" alt="PyTorch" />
+  <img src="https://img.shields.io/badge/Kaggle-Notebook-20BEFF?style=flat-square&logo=kaggle&logoColor=white" alt="Kaggle Notebook" />
+  <img src="https://img.shields.io/badge/FAISS-Vector_Search-0467DF?style=flat-square" alt="FAISS" />
+  <img src="https://img.shields.io/badge/Task-Multimodal_Video_Retrieval-6C63FF?style=flat-square" alt="Multimodal Video Retrieval" />
+</p>
 
-## Mục lục
+<p align="center">
+  A competition-oriented retrieval system for finding the right <b>video</b>, <b>moment</b>, and <b>frame</b> from natural-language queries.
+</p>
 
-- [Giới thiệu](#giới-thiệu)
-- [Tính năng chính](#tính-năng-chính)
-- [Cấu trúc repository](#cấu-trúc-repository)
-- [Luồng xử lý tổng quát](#luồng-xử-lý-tổng-quát)
-- [Yêu cầu môi trường](#yêu-cầu-môi-trường)
-- [Bắt đầu nhanh](#bắt-đầu-nhanh)
-- [Pipeline API](#pipeline-api)
-- [Pipeline Local](#pipeline-local)
-- [Cấu hình API và chi phí](#cấu-hình-api-và-chi-phí)
-- [Định dạng submission](#định-dạng-submission)
-- [Dữ liệu không được đưa lên GitHub](#dữ-liệu-không-được-đưa-lên-github)
-- [Lưu ý bảo mật](#lưu-ý-bảo-mật)
-- [Trạng thái dự án](#trạng-thái-dự-án)
+> [!IMPORTANT]
+> This repository contains source code, notebooks, documentation, and lightweight examples only. Large datasets, internal links, private prompts, generated artifacts, and secrets are intentionally excluded through `.gitignore`.
 
-## Giới thiệu
+## Table of Contents
 
-Hệ thống được tổ chức thành nhiều pipeline phục vụ các giai đoạn khác nhau của bài toán:
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [System Workflow](#system-workflow)
+- [Repository Structure](#repository-structure)
+- [Getting Started](#getting-started)
+- [Pipeline Guide](#pipeline-guide)
+- [API Configuration and Cost Controls](#api-configuration-and-cost-controls)
+- [Submission Format](#submission-format)
+- [Data and Security](#data-and-security)
+- [Project Status](#project-status)
+- [Authors](#authors)
 
-1. Trích xuất đặc trưng từ video và keyframe.
-2. Chuẩn hóa dữ liệu thành các bản ghi có thể truy hồi.
-3. Xây dựng nhiều loại chỉ mục cho tìm kiếm văn bản, hình ảnh và đối tượng.
-4. Phân tích, dịch và mở rộng truy vấn.
-5. Truy hồi ứng viên, hợp nhất kết quả, rerank và tinh chỉnh frame theo thời gian.
-6. Kiểm tra kết quả, kiểm duyệt thủ công và tạo gói submission.
+## Overview
 
-## Tính năng chính
+AI-HCM Challenge 2026 requires a system that can understand a query, search across heterogeneous video metadata, identify promising moments, and export results in the competition format. This repository brings those stages together in a reproducible notebook-based workflow.
 
-- Truy hồi đa nhánh dựa trên đặc trưng hình ảnh, văn bản, OCR, ASR, caption, metadata và object detection.
-- Kết hợp FAISS, BM25, chỉ mục đối tượng, weighted RRF, video prior và reranker.
-- Tinh chỉnh frame bằng cách giải mã video gốc trong một cửa sổ thời gian hẹp.
-- Hỗ trợ các dạng truy vấn và submission KIS, Q&A và TRAKE.
-- Có checkpoint/resume để chạy lại từng giai đoạn hoặc từng truy vấn.
-- Có validator giúp phát hiện lỗi định dạng trước khi nộp bài.
-- Có chế độ `DRY_RUN` mặc định để ước tính token và chi phí trước khi gọi API thật.
+The system combines visual embeddings, multilingual text retrieval, OCR, speech transcripts, captions, object detections, metadata, and temporal evidence. Candidates from independent retrieval branches are fused and reranked before fine-grained frame refinement and human review.
 
-## Cấu trúc repository
+Supported submission scenarios include:
 
-| Thư mục/tệp | Mô tả |
-|---|---|
-| `Code-Extract-Input/` | Notebook và mã nguồn trích xuất đặc trưng từ video, keyframe, OCR, ASR, caption, VLM và bản dịch. |
-| `Code-ThuNghiem-AIC/Pipeline-API/` | Pipeline sử dụng mô hình/API bên ngoài để phân tích truy vấn, embedding, rerank và xuất submission. |
-| `Code-ThuNghiem-AIC/Local/` | Pipeline local sử dụng các mô hình chạy trên GPU, kèm bước review và validator. |
-| `Code-ThuNghiem-AIC/Pipeline-Cũ-4.8-Point/` | Phiên bản pipeline cũ dùng để tham khảo và đối chiếu. |
-| `Planning/` | Kế hoạch, ghi chú và tài liệu phục vụ quá trình phát triển. |
-| `TheLeCuocThi-DeThi/` | Thể lệ, quy định định dạng và các truy vấn của cuộc thi. |
-| `submission_example_AIC26/` | Các tệp submission mẫu. |
-| `Information.txt` | Ghi chú về dataset và các tài nguyên liên quan. |
-| `.gitignore` | Danh sách dữ liệu lớn, tệp nội bộ, secret và tệp sinh ra không được commit. |
+- **KIS** — known-item search for a target video moment.
+- **Q&A** — question answering grounded in retrieved video content.
+- **TRAKE** — temporal retrieval requiring an ordered sequence of frames.
 
-## Luồng xử lý tổng quát
+## Key Features
+
+- Multimodal retrieval over visual features, OCR, ASR, captions, metadata, and detected objects.
+- Dedicated FAISS indices for different embedding spaces, plus BM25 and object inverted indices.
+- Query analysis, translation, and expansion for Vietnamese and English retrieval.
+- Weighted reciprocal rank fusion, video priors, reranking, and temporal non-maximum suppression.
+- Fine-grained frame refinement by decoding source video within a narrow time window.
+- Stage-level and query-level checkpoints for safe resume after notebook interruption.
+- Human-review packages with candidate frames and editable decisions.
+- Submission validation for KIS, Q&A, and TRAKE formats.
+- A safe-by-default API workflow with dry runs, caching, and a hard cost limit.
+
+## System Workflow
 
 ```text
-Video và metadata
-        ↓
-Trích xuất đặc trưng / keyframe / OCR / ASR / caption
-        ↓
-Xây dựng các chỉ mục FAISS, BM25 và object index
-        ↓
-Phân tích, dịch và mở rộng truy vấn
-        ↓
-Truy hồi ứng viên đa nhánh → hợp nhất → rerank
-        ↓
-Tinh chỉnh frame và kiểm duyệt kết quả
-        ↓
-Validator → submission.zip
+Raw videos + metadata
+          │
+          ▼
+Keyframes + OCR + ASR + captions + visual/text features
+          │
+          ▼
+FAISS indices + BM25 index + object index
+          │
+          ▼
+Query analysis + translation + expansion
+          │
+          ▼
+Multibranch retrieval → fusion → reranking → temporal refinement
+          │
+          ▼
+Candidate review + frame selection
+          │
+          ▼
+Validation → submission.zip
 ```
 
-## Yêu cầu môi trường
+Each embedding model keeps its own vector space and FAISS index. Scores are combined only at the ranking layer, preventing invalid comparisons between unrelated embeddings.
 
-Khuyến nghị chạy các notebook trên **Kaggle Notebook** vì pipeline cần GPU, bộ nhớ lớn và một số mô hình có kích thước đáng kể.
+## Repository Structure
 
-### Thành phần cần chuẩn bị
+| Path | Purpose |
+|---|---|
+| [`Code-Extract-Input/`](Code-Extract-Input/) | Feature-extraction notebooks for keyframes, OCR, speech-to-text, image captioning, VLM output, summaries, translations, and embeddings. |
+| [`Code-ThuNghiem-AIC/Pipeline-API/`](Code-ThuNghiem-AIC/Pipeline-API/) | Retrieval pipeline that uses external APIs for query processing, text embeddings, and reranking. |
+| [`Code-ThuNghiem-AIC/Local/`](Code-ThuNghiem-AIC/Local/) | GPU-based local pipeline with index building, retrieval, review, validation, and submission export. |
+| [`Code-ThuNghiem-AIC/Pipeline-Cũ-4.8-Point/`](Code-ThuNghiem-AIC/Pipeline-Cũ-4.8-Point/) | Previous 4.8-point pipeline retained as an experimental reference. |
+| [`Planning/`](Planning/) | Development plans, technical notes, and experiment documentation. |
+| [`TheLeCuocThi-DeThi/`](TheLeCuocThi-DeThi/) | Competition rules, query sets, and official submission-format notes. |
+| [`Information.txt`](Information.txt) | Dataset and resource notes. |
+| [`.gitignore`](.gitignore) | Excludes large data, secrets, caches, internal resources, and generated outputs. |
 
-- Tài khoản Kaggle có quyền truy cập các dataset cần thiết.
-- GPU Kaggle cho các bước embedding, rerank hoặc xử lý video.
-- Bật Internet khi notebook cần tải mô hình hoặc gọi OpenRouter API.
-- Python/Jupyter Notebook theo môi trường Kaggle.
-- Dataset video gốc, feature dataset và bộ đề được mount vào `/kaggle/input`.
+## Getting Started
 
-Notebook có cơ chế tự dò thư mục dataset trong `/kaggle/input`. Khi cần, có thể ghi đè đường dẫn bằng các biến cấu hình như `feature_root`, `dataset_root`, `query_dir`, `FEATURE_ROOT`, `ART_INPUT` hoặc `PKG_INPUT` tùy pipeline.
-
-## Bắt đầu nhanh
-
-### 1. Lấy mã nguồn
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/Kietnehi/AI-HCM-Challenge-2026.git
 cd AI-HCM-Challenge-2026
 ```
 
-### 2. Chọn pipeline
+### 2. Prepare the environment
 
-- Dùng **Pipeline API** nếu muốn tận dụng embedding, rerank và phân tích truy vấn qua API.
-- Dùng **Pipeline Local** nếu muốn chạy nhiều mô hình trực tiếp trên GPU và kiểm duyệt kết quả trong notebook.
-- Dùng `Code-Extract-Input/` nếu cần tạo hoặc cập nhật feature từ video đầu vào.
+Running the notebooks on **Kaggle** is recommended because feature extraction and retrieval require a GPU, substantial memory, and several large models.
 
-### 3. Chạy notebook theo thứ tự
+Before running a pipeline, make sure that you have:
 
-Không nên chạy ngẫu nhiên các notebook trong cùng một pipeline. Mỗi giai đoạn tạo artifact làm đầu vào cho giai đoạn tiếp theo. Hãy đọc README và hướng dẫn Kaggle tương ứng trước khi chạy toàn bộ dataset; nên chạy smoke test với giới hạn nhỏ trước.
+- A Kaggle account with access to the required datasets.
+- A GPU-enabled Kaggle Notebook session.
+- Internet access when a notebook must download models or call an external API.
+- The source videos, feature dataset, and competition queries mounted under `/kaggle/input`.
+- An `OPENROUTER_API_KEY` stored as a Kaggle Secret when using the API pipeline.
 
-## Pipeline API
+Most notebooks automatically discover datasets under `/kaggle/input`. If discovery fails, override the relevant configuration value, such as `feature_root`, `dataset_root`, `query_dir`, `FEATURE_ROOT`, `ART_INPUT`, or `PKG_INPUT`.
 
-Hướng dẫn chi tiết nằm tại [`Code-ThuNghiem-AIC/Pipeline-API/README.md`](Code-ThuNghiem-AIC/Pipeline-API/README.md) và [`HUONG_DAN_CHAY_KAGGLE.md`](Code-ThuNghiem-AIC/Pipeline-API/HUONG_DAN_CHAY_KAGGLE.md).
+### 3. Choose a workflow
 
-Chạy các notebook chính theo thứ tự:
+| Workflow | Best for | Main trade-off |
+|---|---|---|
+| **Feature Extraction** | Creating or refreshing features from raw videos. | Compute-intensive and usually run only when inputs or models change. |
+| **API Pipeline** | Rapid experiments using hosted embeddings, rerankers, and query analysis. | Requires API access and careful cost control. |
+| **Local Pipeline** | GPU-first experiments with more local control and an integrated review flow. | Requires more GPU memory and model setup. |
+
+### 4. Run a smoke test first
+
+Notebook stages produce artifacts consumed by later stages, so run them in the documented order. Before processing the complete dataset, use a small query or video limit to verify dataset paths, schemas, model loading, output locations, and estimated API cost.
+
+## Pipeline Guide
+
+### API Pipeline
+
+See the [API Pipeline README](Code-ThuNghiem-AIC/Pipeline-API/README.md) and [Kaggle execution guide](Code-ThuNghiem-AIC/Pipeline-API/HUONG_DAN_CHAY_KAGGLE.md) for pipeline-specific instructions.
+
+Run the main notebooks in this order:
 
 1. **`01-build-indices-api.ipynb`**
-   - Dò và kiểm tra dữ liệu.
-   - Tạo canonical records.
-   - Xây dựng FAISS, BM25, object index và text-embedding index.
-   - Sinh artifact tại `/kaggle/working/artifacts/` cùng `artifact_manifest.json`.
+   - Discovers and validates input data.
+   - Produces canonical records.
+   - Builds FAISS, BM25, object, and text-embedding indices.
+   - Writes artifacts and `artifact_manifest.json` to `/kaggle/working/artifacts/`.
 
 2. **`02-retrieve-refine-candidates-api.ipynb`**
-   - Phân tích truy vấn và truy hồi đa nhánh.
-   - Fusion, rerank, video prior, temporal NMS và frame refinement.
-   - Tạo review package tại `/kaggle/working/review_package/`.
-   - Cell xuất submission tạo `/kaggle/working/submission.zip`.
+   - Analyzes queries and performs multibranch retrieval.
+   - Applies fusion, reranking, video priors, temporal NMS, and frame refinement.
+   - Writes a review package to `/kaggle/working/review_package/`.
+   - Exports the baseline `/kaggle/working/submission.zip` from its submission cell.
 
 3. **`03-time-to-frameindex.ipynb`**
-   - Xử lý và kiểm tra frame index theo pipeline hiện có trong repository.
+   - Converts and verifies time-based results against frame indices.
 
-> **Ghi chú:** Kế hoạch ban đầu có tham chiếu tới một notebook human-review/submit độc lập, nhưng notebook đó hiện không còn trong thư mục Pipeline API. Vì vậy, pipeline API hiện tại có bước xuất submission tích hợp trong notebook truy hồi để tạo gói kết quả cơ bản.
+> [!NOTE]
+> An earlier design referenced a separate human-review notebook for the API workflow. That notebook is not currently present; baseline submission export is integrated into the retrieval notebook instead.
 
-### Dataset tham khảo trên Kaggle
-
-Pipeline API được thiết kế để sử dụng các dataset sau:
+Expected Kaggle datasets include:
 
 - `fatle542/AIC-Dataset`
 - `kitnehi1211/feature-AIC-2026`
 - `kitnehi1211/dethithunghiem`
 
-Tên slug hoặc đường dẫn mount thực tế có thể thay đổi theo phiên bản dataset. Nếu notebook không tự dò được dữ liệu, hãy chỉ định lại đường dẫn trong `CFG`.
+Dataset slugs and mount paths may change between versions. Update `CFG` when automatic discovery cannot resolve them.
 
-## Pipeline Local
+### Local Pipeline
 
-Hướng dẫn chi tiết nằm tại [`Code-ThuNghiem-AIC/Local/README.md`](Code-ThuNghiem-AIC/Local/README.md) và [`KAGGLE_RUN_GUIDE.md`](Code-ThuNghiem-AIC/Local/KAGGLE_RUN_GUIDE.md).
+See the [Local Pipeline README](Code-ThuNghiem-AIC/Local/README.md) and [Local Kaggle guide](Code-ThuNghiem-AIC/Local/KAGGLE_RUN_GUIDE.md) for full instructions.
 
-Pipeline Local gồm ba notebook:
+The local workflow is designed as a three-notebook sequence:
 
-1. **`01_build_indices_local.ipynb`**: kiểm tra schema/coverage, tạo canonical records, FAISS cho SigLIP2/BGE-M3/CLIP, BM25 đa trường và object inverted index.
-2. **`02_retrieve_refine_candidates_local.ipynb`**: dịch/mở rộng truy vấn, retrieval song ngữ, weighted RRF, rerank, frame refinement và tạo review package.
-3. **`03_human_review_submit_local.ipynb`**: review bằng `ipywidgets`, lưu quyết định, chạy validator và tạo `submission.zip`.
+1. **`01_build_indices_local.ipynb`** — validates schema and coverage, creates canonical records, and builds separate SigLIP2, BGE-M3, and CLIP FAISS indices alongside multifield BM25 and an object inverted index.
+2. **`02_retrieve_refine_candidates_local.ipynb`** — translates and expands queries, performs bilingual retrieval, applies weighted RRF and reranking, refines frames, and produces a review package.
+3. **`03_human_review_submit_local.ipynb`** *(documented, but not currently included)* — provides an `ipywidgets` review interface, saves decisions, validates outputs, and creates `submission.zip`.
 
-### Một số artifact quan trọng
+> [!WARNING]
+> The third local notebook is referenced by the local documentation but is not present in the current repository snapshot. The checked-in local workflow therefore ends with the review package produced by NB02. Use the API pipeline's integrated exporter, or restore the reviewed local submission notebook, before relying on this path for a final archive.
 
-- NB01: `/kaggle/working/artifacts/` và `manifest.json`.
-- NB02: `artifacts02_mimo/review_package/`, gồm `candidates.parquet`, `frame_catalog.csv`, `frames/`, `queries_parsed.json` và `sheets/`.
-- NB03: thư mục submit chứa review decision, báo cáo validation và `submission.zip`.
+Important outputs include:
 
-### Ghi chú thiết kế
+- **NB01:** `/kaggle/working/artifacts/` and `manifest.json`.
+- **NB02:** `artifacts02_mimo/review_package/`, including `candidates.parquet`, `frame_catalog.csv`, `frames/`, `queries_parsed.json`, and `sheets/`.
+- **NB03 (when available):** review decisions, the validation report, and the final `submission.zip`.
 
-- Không trộn các embedding space: SigLIP2, BGE-M3 và CLIP dùng các FAISS index riêng.
-- GPU được giải phóng sau mỗi stage để giảm nguy cơ hết VRAM.
-- Checkpoint theo stage và theo query cho phép tiếp tục sau khi notebook bị gián đoạn.
-- Thiếu một modality không làm loại bỏ ứng viên; ứng viên chỉ mất đóng góp từ nhánh tương ứng.
+The local workflow releases GPU resources between stages and treats missing modalities gracefully: a candidate loses only the score contribution from the unavailable branch rather than being discarded entirely.
 
-## Cấu hình API và chi phí
+## API Configuration and Cost Controls
 
-### API key
-
-Chỉ cung cấp khóa thông qua biến môi trường `OPENROUTER_API_KEY` hoặc Kaggle Secret có cùng tên. Không ghi khóa trực tiếp vào notebook, README, log hoặc artifact.
-
-Ví dụ tên biến cần tạo:
+Store the OpenRouter key in the `OPENROUTER_API_KEY` environment variable or a Kaggle Secret with the same name:
 
 ```text
-OPENROUTER_API_KEY=<khóa-của-bạn>
+OPENROUTER_API_KEY=<your-key>
 ```
 
-Không đưa giá trị thật của khóa vào GitHub.
+Never paste a real key into a notebook, source file, README, log, or generated artifact.
 
-### Chế độ chạy an toàn
+The API notebooks include the following safeguards:
 
-- `CFG["DRY_RUN"] = True` là mặc định trong các notebook API: chỉ ước tính token/chi phí và không gọi API thật.
-- Đặt `DRY_RUN = False` chỉ khi đã kiểm tra dữ liệu, cấu hình và chi phí.
-- Hard cap dùng chung là `MAX_TOTAL_COST_USD = 2.00`.
-- Cache content-addressed cho embedding, rerank và LLM giúp hạn chế chi phí khi chạy lại.
+- `CFG["DRY_RUN"] = True` by default, estimating tokens and cost without making paid requests.
+- `MAX_TOTAL_COST_USD = 2.00` as a shared hard cap.
+- Content-addressed caching for embeddings, reranking, and LLM responses.
+- Explicit opt-in through `DRY_RUN = False` after inputs and estimates have been reviewed.
 
-### Mô hình chính của Pipeline API
+The current API workflow uses:
 
-- Visual: `google/siglip2-giant-opt-patch16-384`.
-- Text embedding: `openai/text-embedding-3-small` qua OpenRouter.
-- Text reranker: `voyageai/rerank-2.5-lite`.
-- Phân tích, dịch và mở rộng truy vấn: `xiaomi/mimo-v2.5`.
-- Lexical retrieval: BM25-Okapi trên `scipy.sparse`.
+| Component | Model or method |
+|---|---|
+| Visual representation | `google/siglip2-giant-opt-patch16-384` |
+| Text embeddings | `openai/text-embedding-3-small` through OpenRouter |
+| Text reranking | `voyageai/rerank-2.5-lite` |
+| Query analysis, translation, and expansion | `xiaomi/mimo-v2.5` |
+| Lexical retrieval | BM25-Okapi on `scipy.sparse` |
 
-## Định dạng submission
+## Submission Format
 
-Chi tiết định dạng phải được đối chiếu với [`TheLeCuocThi-DeThi/sotuyenAIC.md`](TheLeCuocThi-DeThi/sotuyenAIC.md). Các nguyên tắc kiểm tra chính gồm:
+Always verify generated outputs against the competition rules in [`TheLeCuocThi-DeThi/sotuyenAIC.md`](TheLeCuocThi-DeThi/sotuyenAIC.md). The validator checks the core constraints below:
 
-- Mỗi truy vấn có một tệp CSV tương ứng.
-- Tệp dùng UTF-8, phân tách bằng dấu phẩy và không có header.
-- Mỗi tệp có tối đa 100 dòng.
-- `video_id` không có đuôi `.mp4`.
-- `frame_id` phải là số nguyên hợp lệ.
-- Q&A phải đúng số cột và câu trả lời không quá 100 ký tự.
-- TRAKE phải có đúng số frame yêu cầu và frame được sắp xếp tăng dần.
-- File ZIP phải chứa thư mục `submission/`.
+- One CSV file per query.
+- UTF-8 encoding, comma-separated values, and no header row.
+- No more than 100 rows per file.
+- A `video_id` without the `.mp4` suffix.
+- A valid integer `frame_id`.
+- The expected number of Q&A columns and an answer of at most 100 characters.
+- The required number of TRAKE frames in ascending order.
+- A ZIP archive containing a top-level `submission/` directory.
 
-Với Q&A cần người kiểm duyệt điền câu trả lời, pipeline có thể sử dụng tệp JSON dạng:
+For Q&A tasks that require a reviewer-provided answer, the pipeline can consume a JSON mapping such as:
 
 ```json
 {
@@ -212,29 +238,55 @@ Với Q&A cần người kiểm duyệt điền câu trả lời, pipeline có t
 }
 ```
 
-Sau khi review, hãy chạy lại bước export/validator để tạo ZIP cuối cùng. Không nên nộp ZIP khi còn lỗi P0 trong báo cáo validation.
+After review, rerun the export and validation stage. Do not submit an archive while the validation report contains any P0 error.
 
-## Dữ liệu không được đưa lên GitHub
+## Data and Security
 
-Các mục sau được loại khỏi repository bằng `.gitignore`:
+The following local resources are excluded from Git through `.gitignore`:
 
-- `Feature_Dataset/`
-- `Feature_Dataset.zip`
+- `Feature_Dataset/` and `Feature_Dataset.zip`
 - `Kiet-Prompt/`
 - `Link.txt`
-- `THUNGHIEM-bo-de-thi/` và các bộ dữ liệu thử nghiệm tương tự
-- `.env` và các tệp chứa secret
-- Các thư mục cache, virtual environment, artifact và output tạm thời
+- `THUNGHIEM-bo-de-thi/` and related experimental datasets
+- `.env` and other secret-bearing files
+- Caches, virtual environments, generated artifacts, and temporary outputs
 
-Các tệp bị ignore vẫn có thể tồn tại trên máy local hoặc trong môi trường Kaggle. Nếu clone repository mới, cần chuẩn bị lại các dữ liệu này theo quyền truy cập hợp lệ của bạn.
+These resources may still exist on a developer machine or in a private Kaggle environment. A fresh clone requires them to be provisioned separately with the appropriate access rights.
 
-## Lưu ý bảo mật
+Security checklist:
 
-- Không commit API key, mật khẩu, token, cookie hoặc đường dẫn chứa thông tin riêng tư.
-- Kiểm tra `git status` và `git check-ignore` trước khi commit dữ liệu mới.
-- Nếu một khóa đã từng xuất hiện trong lịch sử Git, hãy thu hồi khóa đó trên nhà cung cấp và tạo khóa mới; chỉ xóa chuỗi khóa khỏi file hiện tại là chưa đủ.
-- Không tải dataset hoặc tài liệu nội bộ lên repository công khai nếu chưa có quyền phân phối.
+- Never commit API keys, passwords, tokens, cookies, or private paths.
+- Run `git status` and `git check-ignore` before adding new data.
+- Revoke and rotate any credential that has appeared in Git history; deleting it from the latest file is not sufficient.
+- Do not publish competition datasets or internal documents without distribution permission.
 
-## Trạng thái dự án
+## Project Status
 
-Repository đang phục vụ mục đích nghiên cứu, thử nghiệm và chuẩn bị submission cho AI Challenge 2026. Khi thay đổi cấu hình hoặc notebook, nên ghi lại phiên bản mô hình, dataset, tham số và kết quả validation để có thể tái lập thí nghiệm.
+This repository is actively used for research, experimentation, and submission preparation for AI-HCM Challenge 2026. To keep experiments reproducible, record model versions, dataset versions, parameters, random seeds, and validation results whenever a pipeline configuration changes.
+
+## Authors
+
+<p align="center">
+  Built with curiosity, persistence, and far too many retrieval experiments.
+</p>
+
+| | | | |
+| :---: | :---: | :---: | :---: |
+| <a href="https://github.com/Kietnehi"><img src="https://github.com/Kietnehi.png" width="100" alt="Truong Phu Kiet" /></a> | <a href="https://github.com/ductoanoxo"><img src="https://github.com/ductoanoxo.png" width="100" alt="Duc Toan" /></a> | <a href="https://github.com/phatle224"><img src="https://github.com/phatle224.png" width="100" alt="Phat Le" /></a> | <a href="https://github.com/nhdotvn"><img src="https://github.com/nhdotvn.png" width="100" alt="Le Ngoc Hiep" /></a> |
+| **[Trương Phú Kiệt](https://github.com/Kietnehi)** | **[Đức Toàn](https://github.com/ductoanoxo)** | **[Phát Lê](https://github.com/phatle224)** | **[Lê Ngọc Hiệp](https://github.com/nhdotvn)** |
+| AI Engineer | NLP Engineer | Data Engineer | ML Engineer |
+| <a href="https://github.com/Kietnehi"><img src="https://img.shields.io/badge/GitHub-Profile-181717?style=flat-square&logo=github" alt="Kietnehi GitHub profile" /></a> | <a href="https://github.com/ductoanoxo"><img src="https://img.shields.io/badge/GitHub-Profile-181717?style=flat-square&logo=github" alt="ductoanoxo GitHub profile" /></a> | <a href="https://github.com/phatle224"><img src="https://img.shields.io/badge/GitHub-Profile-181717?style=flat-square&logo=github" alt="phatle224 GitHub profile" /></a> | <a href="https://github.com/nhdotvn"><img src="https://img.shields.io/badge/GitHub-Profile-181717?style=flat-square&logo=github" alt="nhdotvn GitHub profile" /></a> |
+
+<p align="center">
+  <a href="https://github.com/Kietnehi/AI-HCM-Challenge-2026">
+    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=236AD3&center=true&vCenter=true&width=640&lines=AI-HCM+Challenge+2026;Multimodal+Video+Retrieval;Search+%E2%86%92+Fuse+%E2%86%92+Rerank+%E2%86%92+Refine" alt="AI-HCM Challenge 2026 animated title" />
+  </a>
+</p>
+
+<p align="center">
+  <i>Thanks for stopping by. If this project helps you, consider giving it a ⭐.</i>
+</p>
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0056D2,50:6C63FF,100:00C9A7&height=100&section=footer" alt="Footer wave" />
+</p>
